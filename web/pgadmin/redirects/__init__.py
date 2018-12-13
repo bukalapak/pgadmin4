@@ -7,7 +7,7 @@
 #
 ##########################################################################
 
-from flask import redirect, url_for
+from flask import redirect, url_for, Response
 from flask_security import login_required
 
 from pgadmin import PgAdminModule
@@ -25,8 +25,11 @@ def index():
     """Redirect users hitting the root to the browser"""
     return redirect(url_for('browser.index'))
 
-
 @blueprint.route('favicon.ico')
 def favicon():
     """Redirect to the favicon"""
     return redirect(url_for('static', filename='favicon.ico'))
+
+@blueprint.route('healthz')
+def healthz():
+	return Response(status=200)
